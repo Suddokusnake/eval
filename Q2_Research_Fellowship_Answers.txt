@@ -1,0 +1,96 @@
+AI LAB TEST – QUESTION 2
+Knowledge-Based System for Research Fellowship
+
+(i) Represent all four university policies using First-Order Logic (FOL).
+
+Policy 1: Every student studies at least one course.
+
+∀x [Student(x) → ∃y (Course(y) ∧ Studies(x, y))]
+
+Policy 2: A student who studies a course and passes that same course is qualified for research.
+
+∀x∀y [(Student(x) ∧ Course(y) ∧ Studies(x, y) ∧ Passed(x, y)) → Qualified(x)]
+
+Policy 3: A qualified student who is supervised by a professor is considered a researcher.
+
+∀x∀y [(Professor(x) ∧ Supervises(x, y) ∧ Qualified(y)) → Researcher(y)]
+
+Policy 4: Every researcher is eligible for a research fellowship.
+
+∀x [Researcher(x) → Eligible(x)]
+
+
+(ii) Consider the statement:
+
+∀x (Student(x) → ∃y (Course(y) ∧ Studies(x, y)))
+
+Does it imply that every student studies the same course?
+
+No. The statement only says that each student studies at least one course. It does not say that the course must be the same for every student. Different students may study different courses.
+
+Can we conclude that every student studies AI?
+
+No. We cannot conclude that every student studies AI. The given facts state that Ravi studies AI and Anu studies ML. Therefore, the statement guarantees that every student studies at least one course, but it does not guarantee that every student studies AI.
+
+
+(iii) Determine whether Eligible(Ravi) can be derived. Show the sequence of rules applied and the new facts generated at each step.
+
+Yes, Eligible(Ravi) can be derived.
+
+Relevant given facts:
+
+Student(Ravi)
+Course(AI)
+Studies(Ravi, AI)
+Passed(Ravi, AI)
+Professor(DrSharma)
+Supervises(DrSharma, Ravi)
+
+Step 1: Derive Qualified(Ravi).
+
+Using Policy 2:
+
+Student(Ravi) ∧ Course(AI) ∧ Studies(Ravi, AI) ∧ Passed(Ravi, AI)
+
+All these facts are true. Therefore, the rule gives:
+
+Qualified(Ravi)
+
+New fact generated: Qualified(Ravi).
+
+
+Step 2: Derive Researcher(Ravi).
+
+Using Policy 3:
+
+Professor(DrSharma) ∧ Supervises(DrSharma, Ravi) ∧ Qualified(Ravi)
+
+All these facts are now available. Therefore, the rule gives:
+
+Researcher(Ravi)
+
+New fact generated: Researcher(Ravi).
+
+
+Step 3: Derive Eligible(Ravi).
+
+Using Policy 4:
+
+Researcher(Ravi) → Eligible(Ravi)
+
+Since Researcher(Ravi) is true, we derive:
+
+Eligible(Ravi)
+
+New fact generated: Eligible(Ravi).
+
+
+Conclusion:
+
+Yes, Ravi is eligible for the research fellowship.
+
+The derivation sequence is:
+
+Qualified(Ravi) → Researcher(Ravi) → Eligible(Ravi)
+
+This is forward chaining because the rules are applied to the available facts to generate new facts until the required conclusion is reached.
