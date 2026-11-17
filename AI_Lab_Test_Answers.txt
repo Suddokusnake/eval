@@ -1,0 +1,119 @@
+AI LAB TEST – 17 NOVEMBER 2026 Written Answers
+
+QUESTION 1. BLOCKS WORLD
+
+The initial state has four separate blocks, A, B, C and D, all placed on
+the table. The goal is to place A on C and D on B.
+
+Predicates used: OnTable(x): block x is on the table. On(x, y): block x
+is on block y. Clear(x): there is no block on top of block x. ArmEmpty:
+the robotic arm is not holding any block. Holding(x): the robotic arm is
+holding block x.
+
+Initial state: I = { OnTable(A), OnTable(B), OnTable(C), OnTable(D),
+Clear(A), Clear(B), Clear(C), Clear(D), ArmEmpty }
+
+Goal state: G = {On(A, C), On(D, B)}
+
+Operators:
+
+1.  PICKUP(x) Preconditions: OnTable(x), Clear(x), ArmEmpty Effects:
+    Holding(x), not OnTable(x), not ArmEmpty
+
+2.  STACK(x, y) Preconditions: Holding(x), Clear(y) Effects: On(x, y),
+    Clear(x), ArmEmpty, not Holding(x), not Clear(y)
+
+Goal-stack plan:
+
+Step 1: PICKUP(A) The arm picks up A from the table.
+
+Step 2: STACK(A, C) A is placed on C. The condition On(A, C) is now
+satisfied.
+
+Step 3: PICKUP(D) The arm picks up D from the table.
+
+Step 4: STACK(D, B) D is placed on B. The condition On(D, B) is now
+satisfied.
+
+Final state: { On(A, C), On(D, B), OnTable(B), OnTable(C), Clear(A),
+Clear(D), ArmEmpty }
+
+Both goal conditions are satisfied.
+
+QUESTION 2. KNOWLEDGE-BASED SYSTEM FOR RESEARCH FELLOWSHIP
+
+(i) First-Order Logic representation of the four policies
+
+Policy 1: Every student studies at least one course.
+
+For every x, if x is a student, there is at least one y such that y is a
+course and x studies y.
+
+∀x [Student(x) → ∃y (Course(y) ∧ Studies(x, y))]
+
+Policy 2: A student who studies a course and passes that same course is
+qualified for research.
+
+∀x∀y [(Student(x) ∧ Course(y) ∧ Studies(x, y) ∧ Passed(x, y)) →
+Qualified(x)]
+
+Policy 3: A qualified student who is supervised by a professor is
+considered a researcher.
+
+∀x∀y [(Professor(x) ∧ Supervises(x, y) ∧ Qualified(y)) → Researcher(y)]
+
+Policy 4: Every researcher is eligible for a research fellowship.
+
+∀x [Researcher(x) → Eligible(x)]
+
+(ii) Meaning of the given statement
+
+Given statement:
+
+∀x (Student(x) → ∃y (Course(y) ∧ Studies(x, y)))
+
+This statement says that every student studies at least one course. It
+does not say that all students study one common course. The course can
+be different for each student.
+
+We also cannot conclude that every student studies AI. The given facts
+say that Ravi studies AI and Anu studies ML. Therefore, the statement
+only guarantees that each student studies at least one course; it does
+not guarantee that the course is AI or that it is the same for everyone.
+
+(iii) Deriving Eligible(Ravi)
+
+Yes, Eligible(Ravi) can be derived from the given facts and policies.
+
+Given facts relevant to Ravi: Student(Ravi) Course(AI) Studies(Ravi, AI)
+Passed(Ravi, AI) Professor(DrSharma) Supervises(DrSharma, Ravi)
+
+Step 1: Derive Qualified(Ravi)
+
+Using Policy 2, Ravi is a student, AI is a course, Ravi studies AI, and
+Ravi has passed AI. Therefore:
+
+Qualified(Ravi)
+
+Step 2: Derive Researcher(Ravi)
+
+Using Policy 3, DrSharma is a professor, DrSharma supervises Ravi, and
+Ravi is qualified. Therefore:
+
+Researcher(Ravi)
+
+Step 3: Derive Eligible(Ravi)
+
+Using Policy 4, every researcher is eligible for a research fellowship.
+Since Ravi is a researcher:
+
+Eligible(Ravi)
+
+Conclusion:
+
+Eligible(Ravi) is successfully derived. The sequence is:
+
+Qualified(Ravi) → Researcher(Ravi) → Eligible(Ravi)
+
+This is a forward-chaining derivation because each rule is applied to
+facts already available to produce a new fact.
